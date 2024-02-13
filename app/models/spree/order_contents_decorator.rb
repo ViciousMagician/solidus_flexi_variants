@@ -31,7 +31,7 @@ Spree::OrderContents.class_eval do
     end
     ######
 
-    if Spree.solidus_version < '2.5' && line_item.new_record?
+    if Spree.solidus_version < '3.5' && line_item.new_record?
       create_order_stock_locations(line_item, options[:stock_location_quantities])
     end
 
@@ -56,8 +56,9 @@ Spree::OrderContents.class_eval do
         ad_hoc_options_offset_price = line_item.add_ad_hoc_option_values(ad_hoc_option_value_ids)
       end
 
-      line_item.price = variant.price_in(order.currency).amount + customizations_offset_price + ad_hoc_options_offset_price
-
+      # line_item.price = variant.price_in(order.currency).amount + customizations_offset_price + ad_hoc_options_offset_price
+      price_options = Spree::Config.pricing_options_class.new(currency: order.currency)
+      line_item.price = variant.price_for(price_options).to_d + customizations_offset_price + ad_hoc_options_offset_price
       return line_item
   end
 

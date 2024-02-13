@@ -7,7 +7,7 @@
       var variant_price_map = {};
 
       <% if @product.has_variants? %>
-        <% @product.variants.active.each_with_index do |variant, index| %>
+        <% @product.variants.each_with_index do |variant, index| %>
           variant_price_map[<%= variant.id %>] = <%= variant.price %>;
         <% end %>
       <% end %>

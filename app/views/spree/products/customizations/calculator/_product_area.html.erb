@@ -11,6 +11,20 @@
         return 0;
       }
 
+    var width = $(fields[0]).val();
+    var height = $(fields[1]).val();
+    if (<%= calculator.preferred_min_width%> > width || <%= calculator.preferred_max_width%> < width){
+    $(".width_error").text("**width should be between " + <%= calculator.preferred_min_width%> + " and " + <%= calculator.preferred_max_width%>)
+    $(".width_error").show(); }
+    else {
+    $(".width_error").hide(); }
+
+    if (height > 0 && (<%= calculator.preferred_min_height%> > height || <%= calculator.preferred_max_height%> < height)){
+    $(".height_error").text("**height should be between " + <%= calculator.preferred_min_height%> + " and " + <%= calculator.preferred_max_height%>)
+    $(".height_error").show(); }
+    else {
+    $(".height_error").hide(); }
+
       var area = $(fields[0]).val() * $(fields[1]).val();
 
       // from http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric

@@ -3,10 +3,12 @@ en:
   spree:
     variant_col_size: 12
     required: "Required?"
+    cost_price_modifier: "Cost Price Modifier"
     price_modifier: "Price Adjustment"
     price_modifier_type: "What price modifier strategy does this option type use?"
     add_option_values: "Add Option Values"
     edit_option_values: "Edit Option Values"
+    editing_resource: "Edit Resource"
     notice_messages:
       option_value_removed: "Option Value Removed"
       option_type_removed: "Option Type Removed"
@@ -31,6 +33,7 @@ en:
     default_value: 'Default Value'
     ad_hoc_option_types: 'Ad Hoc Option Types'
     ad_hoc_option_type: 'Ad Hoc Option Type'
+    add_ad_hoc_option_type: 'Add Ad Hoc Option Type'
     partial: 'Optionally override the default partial'
     price_per_letter: 'Price Per Letter'
     min_length: 'Min. Length'
@@ -51,3 +54,4 @@ en:
     reset: 'Reset'
     position_within_product: 'Display order relative to other Ad Hoc Options (low numbers are displayed first)'
     selected_by_default: 'Selected by default?'
+    back_to_ad_hoc_option_types_list: 'back'

@@ -2,7 +2,13 @@
 
   <%= javascript_tag do %>
     function calculate_amount_times_constant_price(obj) {
-      return <%= calculator.preferred_multiplier %> * $(obj).val();
+      var val = $(obj).val()
+      if (<%= calculator.preferred_min_amount%> > val || <%= calculator.preferred_max_amount%> < val){
+        $(".amount_error").text("**amount should be between " + <%= calculator.preferred_min_amount%> + " and " + <%= calculator.preferred_max_amount%>)
+        $(".amount_error").show(); }
+      else {
+      $(".amount_error").hide();
+      return <%= calculator.preferred_multiplier %> * val; }
     }
   <% end %>
 <% end %>

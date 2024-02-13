@@ -30,16 +30,15 @@ I have only tested with V2.0, unsure if compatible with other versions as of yet
 
 ## Examples
 
-Build a 'Cake' product using **Ad Hoc Options** and **Product Customizations**
+Build a 'Hoodie' product using **Ad Hoc Options** and **Product Customizations**
 
-![Cake](https://raw.github.com/QuintinAdam/spree_flexi_variants/master/doc/custom_cake.png)
+![Hoodie](doc/hoodie.png?raw=true "Title")
 
-Build a 'Necklace'  product using **Ad Hoc Options** and **Product Customizations**
+Build a 'Mug'  product using **Ad Hoc Options** and **Product Customizations**
 
-![Necklace](https://raw.github.com/jsqu99/spree_flexi_variants/master/doc/necklace_screenshot.png)
+![Mug](doc/cup.png?raw=true "Title")
 
-Build a 'Pizza' product using **Ad Hoc Options**. Note that the 'multi' option checkboxes come from a partial named after the option name (see app/views/products/ad_hoc_options/_toppings.html.erb)
+Build a 'Bag'  product using **Ad Hoc Options** and **Product Customizations**
 
-![Picture Frame](https://raw.github.com/jsqu99/spree_flexi_variants/master/doc/pizza_screenshot.png)
-
+![Mug](doc/bag.png?raw=true "Title")
 See the [wiki](https://github.com/jsqu99/spree_flexi_variants/wiki) for more detail.

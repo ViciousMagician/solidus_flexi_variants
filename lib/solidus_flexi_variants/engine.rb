@@ -1,6 +1,7 @@
 module SolidusFlexiVariants
   class Engine < Rails::Engine
     engine_name 'solidus_flexi_variants'
+    include Spree::Core::EnvironmentExtension
 
     config.autoload_paths += %W(#{config.root}/lib)
 
@@ -35,14 +36,17 @@ module SolidusFlexiVariants
     end
 
     initializer "spree.flexi_variants.register.calculators" do |app|
-      app.config.spree.calculators.add_class('product_customization_types') unless app.config.spree.calculators.respond_to?(:product_customization_types)
-      app.config.spree.calculators.product_customization_types.concat([
-                                                                    Spree::Calculator::Engraving,
-                                                                    Spree::Calculator::AmountTimesConstant,
-                                                                    Spree::Calculator::ProductArea,
-                                                                    Spree::Calculator::CustomizationImage,
-                                                                    Spree::Calculator::NoCharge
-                                                                   ])
+      unless app.config.spree.calculators.respond_to?(:product_customization_types)
+        app.config.spree.calculators.class.add_class_set(:product_customization_types)
+        customization_types = [
+          Spree::Calculator::Engraving,
+          Spree::Calculator::AmountTimesConstant,
+          Spree::Calculator::ProductArea,
+          Spree::Calculator::CustomizationImage,
+          Spree::Calculator::NoCharge
+        ]
+        app.config.spree.calculators.product_customization_types.concat(customization_types)
+      end
     end
   end
 end

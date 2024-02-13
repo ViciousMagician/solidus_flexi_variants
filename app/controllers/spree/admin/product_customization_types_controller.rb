@@ -10,7 +10,7 @@ module Spree
     end
 
     def load_calculators
-      @calculators = ProductCustomizationType.calculators.sort_by(&:name)
+      @calculators = Spree::Config.environment.calculators.product_customization_types.sort_by(&:name)
     end
 
     def available

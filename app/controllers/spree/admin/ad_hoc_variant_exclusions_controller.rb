@@ -7,12 +7,12 @@ module Spree
       def create
         return unless params["ad_hoc_option_type"]
 
-        params["ad_hoc_option_type"].each_pair do |otid, ovid|
-          next if ovid.empty?
-          eov = ExcludedAdHocOptionValue.create(ad_hoc_variant_exclusion: @ad_hoc_variant_exclusion, ad_hoc_option_value_id: ovid)
-        end
         @ad_hoc_variant_exclusion.product = @product
         if @ad_hoc_variant_exclusion.save
+          params["ad_hoc_option_type"].each_pair do |otid, ovid|
+            next if ovid.empty?
+            eov = ExcludedAdHocOptionValue.create(ad_hoc_variant_exclusion: @ad_hoc_variant_exclusion, ad_hoc_option_value_id: ovid)
+          end
           flash[:success] = 'Ad Hoc Variant Exclusion was created'
         else
           flash[:error] = 'Error in creating Ad Hoc Variant Exclusion'

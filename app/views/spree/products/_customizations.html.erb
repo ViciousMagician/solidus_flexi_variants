@@ -4,43 +4,105 @@
 
   <div id="product-customizations">
     <div class= 'col-sm-12'>
-      <h3 class="product-section-title"><%=Spree.t(:customizations) %></h3>
+      <h3 class="product-section-title"><%=I18n.t(:customizations, scope: :spree) %></h3>
     </div>
     <ul class="list-group list-unstyled">
       <% @product.product_customization_types.group_by{ |x| calculator_name(x) }.each do |product_customization_grouped_by_calc_type| %>
         <% product_clac_name, product_customization_type_group = product_customization_grouped_by_calc_type %>
-        <div class='col-sm-12'>
-          <legend><%= product_customization_type_group.first.presentation %></legend>
-        </div>
-        <% product_customization_type_group.each do |product_customization_type| %>
-          <%# render a custom partial based on the customization name? %>
-          <% param_prefix = "product_customizations[#{product_customization_type.id}]" %>
-          <% partial_name = "spree/products/customizations/customization_type/#{product_customization_type.name}" %>
-          <% if lookup.exists?(partial_name,nil,true) %>
-            <%= render partial: partial_name, locals: {product_customization_type: product_customization_type, param_prefix: param_prefix} %>
-          <% else %>
-            <% partial_name = "spree/products/customizations/calculator_type/#{product_clac_name}" %>
+        <div class='col-sm-12 product_customization_type_block'>
+          <h4><%= product_customization_type_group.first.presentation %></h4>
+          <% product_customization_type_group.each do |product_customization_type| %>
+            <%# render a custom partial based on the customization name? %>
+            <% param_prefix = "product_customizations[#{product_customization_type.id}]" %>
+            <% partial_name = "spree/products/customizations/customization_type/#{product_customization_type.name}" %>
             <% if lookup.exists?(partial_name,nil,true) %>
               <%= render partial: partial_name, locals: {product_customization_type: product_customization_type, param_prefix: param_prefix} %>
             <% else %>
-              <li>
-                <div class="col-md-<%= Spree.t(:variant_col_size) %> form-group">
-                  <p><%= product_customization_type.description  %></p>
-                  <% product_customization_type.customizable_product_options.each_with_index do |customizable_product_option, index| %>
-                    <h5 class="presentation-for-customizable-product-option">
-                      <%= customizable_product_option.presentation %>
-                    </h5>
-                    <div class="form-for-customizable-product-option <%= "customization_option_#{index}" %>">
-                      <%= text_field_tag "#{param_prefix}[#{customizable_product_option.id}]","", class: "customization form-control", placeholder:  customizable_product_option.description%>
-                    </div>
-                  <% end # options.each %>
-                </div>
-              </li>
+              <% partial_name = "spree/products/customizations/calculator_type/#{product_clac_name}" %>
+              <% if lookup.exists?(partial_name,nil,true) %>
+                <%= render partial: partial_name, locals: {product_customization_type: product_customization_type, param_prefix: param_prefix} %>
+              <% else %>
+                <li>
+                  <div class="col-md-<%= I18n.t(:variant_col_size, scope: :spree) %> form-group">
+                    <p><%= product_customization_type.description  %></p>
+                    <% product_customization_type.customizable_product_options.each_with_index do |customizable_product_option, index| %>
+                      <h5 class="presentation-for-customizable-product-option">
+                        <%= customizable_product_option.presentation %>
+                      </h5>
+                      <div class="form-for-customizable-product-option <%= "customization_option_#{index}" %>">
+                        <%= text_field_tag "#{param_prefix}[#{customizable_product_option.id}]","", class: "customization form-control", placeholder:  customizable_product_option.description%>
+                      </div>
+                    <% end # options.each %>
+                  </div>
+                </li>
+              <% end %> <%# lookup.exists? %>
             <% end %> <%# lookup.exists? %>
-          <% end %> <%# lookup.exists? %>
-        <% end %> <%# each product_customization_type %>
+          <% end %> <%# each product_customization_type %>
+        </div>
         <div class='col-sm-12'></div>
       <% end %> <%# each product_customization_grouped_by_calc_type %>
     </ul>
   </div> <!-- product-customizations -->
 <% end %>
+<style>
+    div#ad_hoc_options ul {
+        display: flex;
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        gap: 20px;
+    }
+
+    div#ad_hoc_options ul li h5 {
+        text-transform: uppercase;
+        font-weight: 400;
+        letter-spacing: 1px;
+        margin-bottom: 3px;
+    }
+
+    div#ad_hoc_options ul li select {
+        border: 1px solid #d9d9db;
+        background-color: #fff;
+        padding: 6px 5px;
+        outline: none;
+    }
+    .product_customization_type_block {
+        padding: 15px;
+        border: 1px solid #d9d9db;
+        margin-bottom: 20px;
+    }
+
+    .product_customization_type_block h4 {
+        margin: 0;
+        text-transform: capitalize;
+        font-weight: 500;
+    }
+
+    .product_customization_type_block  h5 {
+        font-size: 14px;
+        font-weight: 400;
+        text-transform: capitalize;
+        margin-bottom: 3px;
+    }
+
+    .product_customization_type_block input[type="text"] {
+        border: 1px solid #d9d9db;
+        padding: 10px 10px;
+        font-size: 14px;
+        font-weight: 400;
+    }
+    .product_customization_type_block  input[type="file"]::file-selector-button {
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        background-color: #00ADEE;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 400;
+        transition: 1s;
+    }
+
+    .product_customization_type_block  input[type="file"]::file-selector-button:hover {
+        background-color: #000;
+    }
+</style>
